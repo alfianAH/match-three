@@ -150,6 +150,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbaca394a19e6d5449b8618ae8e47a93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gridSizeX: 8
+  gridSizeY: 10
+  startPos: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 0}
+  tilePrefab: {fileID: 244646712180216788, guid: 63938fc8ee6a2ce459cb69cfb65bdafc,
+    type: 3}
+  candies:
+  - {fileID: 2812292172113079835, guid: 1d4cc7ddf4994c346b143562e5df4052, type: 3}
+  - {fileID: 8430262983039436513, guid: 214a77020eaedc34da39655b9e218b55, type: 3}
+  - {fileID: 8456244319467749004, guid: 533e826c290d09242a5d5f9a1dc54d29, type: 3}
+  - {fileID: 8061116975854403217, guid: a0c323efe7735504e830be6a2c28c0a8, type: 3}
+  - {fileID: 2931732589671356173, guid: 587fee36b83900d42a2275bf44cf2881, type: 3}
+  - {fileID: 518305475872957386, guid: 4d5f020b48d39e94d86a02611958f6e3, type: 3}
+  - {fileID: 6842092065777948302, guid: ad25e008c6b23564ab3ad63b40e461b3, type: 3}
 --- !u!4 &352656985
 Transform:
   m_ObjectHideFlags: 0
@@ -302,7 +316,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300000, guid: 718e23254fd63694bb363a70ab2846e3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
