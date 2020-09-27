@@ -1,7 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public bool isMatched;
     public float xPosition,
         yPosition;
     public int column, 
@@ -9,13 +11,17 @@ public class Tile : MonoBehaviour
 
     private Grid grid;
     private GameObject otherTile;
+    private SpriteRenderer tileSprite;
     private Vector3 firstPosition,
         finalPosition,
         tempPosition;
     private float swipeAngle;
+    private int previousColumn,
+        previousRow;
 
     private void Start()
     {
+        tileSprite = GetComponent<SpriteRenderer>();
         // Set position from tile
         grid = FindObjectOfType<Grid>();
         xPosition = transform.position.x;
@@ -26,9 +32,15 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
+        CheckMatches();
         xPosition = column * grid.offset.x + grid.startPos.x;
         yPosition = row * grid.offset.y + grid.startPos.y;
         SwipeTile();
+
+        if (isMatched)
+        {
+            tileSprite.color = Color.grey;
+        }
     }
 
     private void OnMouseDown()
@@ -60,6 +72,9 @@ public class Tile : MonoBehaviour
     /// </summary>
     private void MoveTile()
     {
+        previousRow = row;
+        previousColumn = column;
+        
         if (swipeAngle > -45 && swipeAngle <= 45 && column < grid.gridSizeX)
         {
             // Right swipe
@@ -84,6 +99,72 @@ public class Tile : MonoBehaviour
             Debug.Log("Down swipe");
             SwipeDownMove();
         }
+
+        StartCoroutine(CheckMove());
+    }
+
+    private void CheckMatches()
+    {
+        // Check horizontal matching
+        if (column > 0 && column < grid.gridSizeX - 1)
+        {
+            // Check the other side
+            GameObject leftTile = grid.tiles[column - 1, row];
+            GameObject rightTile = grid.tiles[column + 1, row];
+
+            if (leftTile != null && rightTile != null)
+            {
+                if (leftTile.CompareTag(gameObject.tag) && rightTile.CompareTag(gameObject.tag))
+                {
+                    isMatched = true;
+                    rightTile.GetComponent<Tile>().isMatched = true;
+                    leftTile.GetComponent<Tile>().isMatched = true;
+                }
+            }
+        }
+        
+        // Check vertical matching
+        if (row > 0 && row < grid.gridSizeX - 1)
+        {
+            // Check up and down
+            GameObject upTile = grid.tiles[column, row + 1];
+            GameObject downTile = grid.tiles[column, row - 1];
+
+            if (upTile != null && downTile != null)
+            {
+                if (upTile.CompareTag(gameObject.tag) && downTile.CompareTag(gameObject.tag))
+                {
+                    isMatched = true;
+                    downTile.GetComponent<Tile>().isMatched = true;
+                    upTile.GetComponent<Tile>().isMatched = true;
+                }
+            }
+        }
+    }
+
+    private IEnumerator CheckMove()
+    {
+        yield return new WaitForSeconds(0.5f);
+        
+        // If there is same tile, DestroyMatches
+        if (otherTile != null)
+        {
+            Tile otherTileComponent = otherTile.GetComponent<Tile>();
+            
+            if (!isMatched && !otherTileComponent.isMatched)
+            {
+                otherTileComponent.row = row;
+                otherTileComponent.column = column;
+                row = previousRow;
+                column = previousColumn;
+            }
+            else
+            {
+                grid.DestroyMatches();
+            }
+        }
+
+        otherTile = null;
     }
 
     private void SwipeTile()
@@ -116,7 +197,10 @@ public class Tile : MonoBehaviour
             grid.tiles[column, row] = gameObject;
         }
     }
-
+    
+    /// <summary>
+    /// Swipe right
+    /// </summary>
     private void SwipeRightMove()
     {
         if (column+1 < grid.gridSizeX)
@@ -128,6 +212,9 @@ public class Tile : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Swipe up
+    /// </summary>
     private void SwipeUpMove()
     {
         if (row+1 < grid.gridSizeY)
@@ -139,6 +226,9 @@ public class Tile : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Swipe left
+    /// </summary>
     private void SwipeLeftMove()
     {
         if (column-1 >= 0)
@@ -150,6 +240,9 @@ public class Tile : MonoBehaviour
         }
     }
     
+    /// <summary>
+    /// Swipe down
+    /// </summary>
     private void SwipeDownMove()
     {
         if (row-1 >= 0)

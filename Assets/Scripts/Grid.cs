@@ -106,4 +106,28 @@ public class Grid : MonoBehaviour
 
         return false;
     }
+
+    private void DestroyMatchesAt(int column, int row)
+    {
+        // Destroy tile in certain index
+        if (tiles[column, row].GetComponent<Tile>().isMatched)
+        {
+            Destroy(tiles[column, row]);
+            tiles[column, row] = null;
+        }
+    }
+
+    public void DestroyMatches()
+    {
+        for (int i = 0; i < gridSizeX; i++)
+        {
+            for (int j = 0; j < gridSizeY; j++)
+            {
+                if (tiles[i, j] != null)
+                {
+                    DestroyMatchesAt(i, j);
+                }
+            }
+        }
+    }
 }
