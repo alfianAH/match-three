@@ -38,8 +38,16 @@ public class Grid : MonoBehaviour
 
                 backgroundTile.transform.parent = transform;
                 backgroundTile.name = $"({i}, {j})";
-
+                
                 int index = Random.Range(0, candies.Length);
+
+                int maxIteration = 0;
+                while (MatchesAt(i, j, candies[index]) && maxIteration < 100)
+                {
+                    Debug.Log("tes");
+                    index = Random.Range(0, candies.Length);
+                    maxIteration++;
+                }
                 
                 // Create candies
                 GameObject candy = Instantiate(candies[index], pos, Quaternion.identity);
@@ -48,5 +56,54 @@ public class Grid : MonoBehaviour
                 tiles[i, j] = candy;
             }
         }
+    }
+    
+    /// <summary>
+    /// Prevent matching tiles
+    /// </summary>
+    /// <param name="column"></param>
+    /// <param name="row"></param>
+    /// <param name="piece"></param>
+    /// <returns></returns>
+    private bool MatchesAt(int column, int row, GameObject piece)
+    {
+        // Check if there is the same tile under and next to it
+        if (column > 1 && row > 1)
+        {
+            if (tiles[column - 1, row].CompareTag(piece.tag) && 
+                tiles[column - 2, row].CompareTag(piece.tag))
+            {
+                return true;
+            }
+
+            if (tiles[column, row - 1].CompareTag(piece.tag) &&
+                tiles[column, row - 2].CompareTag(piece.tag))
+            {
+                return true;
+            }
+        }
+        else if (column <= 1 || row <= 1)
+        {
+            // Check if there is the same tile on top and nex to it
+            if (row > 1)
+            {
+                if (tiles[column, row - 1].CompareTag(piece.tag) &&
+                    tiles[column, row - 2].CompareTag(piece.tag))
+                {
+                    return true;
+                }
+            }
+
+            if (column > 1)
+            {
+                if (tiles[column - 1, row].CompareTag(piece.tag) &&
+                    tiles[column - 2, row].CompareTag(piece.tag))
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
