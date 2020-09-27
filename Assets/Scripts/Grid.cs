@@ -106,7 +106,7 @@ public class Grid : MonoBehaviour
 
         return false;
     }
-
+    
     private void DestroyMatchesAt(int column, int row)
     {
         // Destroy tile in certain index
@@ -116,7 +116,7 @@ public class Grid : MonoBehaviour
             tiles[column, row] = null;
         }
     }
-
+    
     public void DestroyMatches()
     {
         for (int i = 0; i < gridSizeX; i++)

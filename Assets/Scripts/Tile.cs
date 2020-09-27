@@ -102,7 +102,10 @@ public class Tile : MonoBehaviour
 
         StartCoroutine(CheckMove());
     }
-
+    
+    /// <summary>
+    /// Check tile matching
+    /// </summary>
     private void CheckMatches()
     {
         // Check horizontal matching
@@ -141,7 +144,11 @@ public class Tile : MonoBehaviour
             }
         }
     }
-
+    
+    /// <summary>
+    /// Check move. If there are same tiles, destroy it
+    /// </summary>
+    /// <returns></returns>
     private IEnumerator CheckMove()
     {
         yield return new WaitForSeconds(0.5f);
