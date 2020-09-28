@@ -75,28 +75,28 @@ public class Tile : MonoBehaviour
         previousRow = row;
         previousColumn = column;
         
-        if (swipeAngle > -45 && swipeAngle <= 45 && column < grid.gridSizeX)
+        if (swipeAngle > -45 && swipeAngle <= 45)
         {
             // Right swipe
-            Debug.Log("Right swipe");
+            // Debug.Log("Right swipe");
             SwipeRightMove();
         }
-        else if (swipeAngle > 45 && swipeAngle <= 135 && row < grid.gridSizeY)
+        else if (swipeAngle > 45 && swipeAngle <= 135)
         {
             // Up swipe
-            Debug.Log("Up swipe");
+            // Debug.Log("Up swipe");
             SwipeUpMove();
         } 
-        else if (swipeAngle > 135 || swipeAngle <= -135 && column > 0 )
+        else if (swipeAngle > 135 || swipeAngle <= -135)
         {
             // Left swipe
-            Debug.Log("Left swipe");
+            // Debug.Log("Left swipe");
             SwipeLeftMove();
         }
-        else if (swipeAngle < -45 && swipeAngle >= -135 && row > 0)
+        else if (swipeAngle < -45 && swipeAngle >= -135)
         {
             // Down swipe
-            Debug.Log("Down swipe");
+            // Debug.Log("Down swipe");
             SwipeDownMove();
         }
 
@@ -192,7 +192,7 @@ public class Tile : MonoBehaviour
 
         if (Mathf.Abs(yPosition - transform.position.y) > 0.1f)
         {
-            // Move toward the target
+            // Move towards the target
             tempPosition = new Vector3(transform.position.x, yPosition);
             transform.position = Vector3.Lerp(transform.position, tempPosition, 0.4f);
         }
