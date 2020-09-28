@@ -50,7 +50,7 @@ public class Grid : MonoBehaviour
                 }
                 
                 // Create candies
-                GameObject candy = Instantiate(candies[index], pos, Quaternion.identity);
+                GameObject candy = ObjectPooler.Instance.SpawnFromPool(index.ToString(), pos, Quaternion.identity);
                 
                 candy.name = $"{i}, {j})";
                 tiles[i, j] = candy;
@@ -112,8 +112,9 @@ public class Grid : MonoBehaviour
         // Destroy tile in certain index
         if (tiles[column, row].GetComponent<Tile>().isMatched)
         {
-            GameManager.instance.AddScore(10);
-            Destroy(tiles[column, row]);
+            GameManager.Instance.AddScore(10);
+            GameObject gm = tiles[column, row];
+            gm.SetActive(false);
             tiles[column, row] = null;
         }
     }
@@ -146,7 +147,7 @@ public class Grid : MonoBehaviour
                 if (tiles[i, j] == null){
                     Vector3 tempPosition = new Vector3(startPos.x + i*offset.x, startPos.y + j*offset.y);
                     int candyToUse = Random.Range(0, candies.Length);
-                    GameObject tileToRefill = Instantiate(candies[candyToUse], tempPosition, Quaternion.identity);
+                    GameObject tileToRefill = ObjectPooler.Instance.SpawnFromPool(candyToUse.ToString(), tempPosition, Quaternion.identity);
                     
                     tiles[i, j] = tileToRefill;
                 }

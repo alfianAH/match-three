@@ -4,17 +4,17 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     // Instance 
-    public static GameManager instance;
+    public static GameManager Instance;
     public Text scoreText;
     private int playerScore;
 
     private void Start()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
         } 
-        else if (instance != null)
+        else if (Instance != null)
         {
             Destroy(gameObject);
         }
