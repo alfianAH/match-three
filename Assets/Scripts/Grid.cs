@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Grid : MonoBehaviour
 {
@@ -128,6 +129,93 @@ public class Grid : MonoBehaviour
                     DestroyMatchesAt(i, j);
                 }
             }
+        }
+        
+        StartCoroutine(DecreaseRow());
+    }
+    
+    /// <summary>
+    /// If there are null tiles, instance random candies 
+    /// </summary>
+    private void RefillBoard()
+    {
+        for (int i = 0; i < gridSizeX; i++)
+        {
+            for (int j = 0; j < gridSizeY; j++)
+            {
+                if (tiles[i, j] == null){
+                    Vector3 tempPosition = new Vector3(startPos.x + i*offset.x, startPos.y + j*offset.y);
+                    int candyToUse = Random.Range(0, candies.Length);
+                    GameObject tileToRefill = Instantiate(candies[candyToUse], tempPosition, Quaternion.identity);
+                    
+                    tiles[i, j] = tileToRefill;
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    /// To check every grids
+    /// </summary>
+    /// <returns></returns>
+    private bool MatchesOnBoard()
+    {
+        for (int i = 0; i < gridSizeX; i++)
+        {
+            for (int j = 0; j < gridSizeY; j++)
+            {
+                if (tiles[i, j] != null)
+                {
+                    if (tiles[i, j].GetComponent<Tile>().isMatched)
+                    {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+    
+    /// <summary>
+    /// To decrease row which tile is null
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator DecreaseRow()
+    {
+        int nullCount = 0;
+        for (int i = 0; i < gridSizeX; i++)
+        {
+            for (int j = 0; j < gridSizeY; j++)
+            {
+                if (tiles[i, j] == null)
+                    nullCount++;
+                else if (nullCount > 0)
+                {
+                    tiles[i, j].GetComponent<Tile>().row -= nullCount;
+                    tiles[i, j] = null;
+                }
+            }
+
+            nullCount = 0;
+        }
+        yield return new WaitForSeconds(0.4f);
+        StartCoroutine(FillBoard());
+    }
+    
+    /// <summary>
+    /// Fill tile in board
+    /// </summary>
+    /// <returns></returns>
+    private IEnumerator FillBoard()
+    {
+        RefillBoard();
+        yield return new WaitForSeconds(0.5f);
+
+        while (MatchesOnBoard())
+        {
+            yield return new WaitForSeconds(0.5f);
+            DestroyMatches();
         }
     }
 }
