@@ -45,7 +45,6 @@ public class Grid : MonoBehaviour
                 int maxIteration = 0;
                 while (MatchesAt(i, j, candies[index]) && maxIteration < 100)
                 {
-                    Debug.Log("tes");
                     index = Random.Range(0, candies.Length);
                     maxIteration++;
                 }
@@ -113,6 +112,7 @@ public class Grid : MonoBehaviour
         // Destroy tile in certain index
         if (tiles[column, row].GetComponent<Tile>().isMatched)
         {
+            GameManager.instance.AddScore(10);
             Destroy(tiles[column, row]);
             tiles[column, row] = null;
         }
