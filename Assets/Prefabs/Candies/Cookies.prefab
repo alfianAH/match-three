@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7120020610065570190}
   - component: {fileID: 4052706630521018183}
   - component: {fileID: -3949695694257591750}
+  - component: {fileID: -8086196346289652535}
   m_Layer: 0
   m_Name: Cookies
   m_TagString: Cookies
@@ -121,3 +122,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d729146481a4540a05d0d99e58a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMatched: 0
+  xPosition: 0
+  yPosition: 0
+  column: 0
+  row: 0
+--- !u!114 &-8086196346289652535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8456244319467749004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593b74d779041674384c76bb79b67644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poiName: Cookie event

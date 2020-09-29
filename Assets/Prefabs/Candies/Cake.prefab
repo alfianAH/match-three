@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7044758258544124378}
   - component: {fileID: -6761198837904183311}
   - component: {fileID: -3656611939234297679}
+  - component: {fileID: -464559661692200020}
   m_Layer: 0
   m_Name: Cake
   m_TagString: Cake
@@ -121,3 +122,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06d729146481a4540a05d0d99e58a274, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isMatched: 0
+  xPosition: 0
+  yPosition: 0
+  column: 0
+  row: 0
+--- !u!114 &-464559661692200020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2812292172113079835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 593b74d779041674384c76bb79b67644, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poiName: Cake event
