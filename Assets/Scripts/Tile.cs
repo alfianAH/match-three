@@ -127,7 +127,7 @@ public class Tile : MonoBehaviour
         }
         
         // Check vertical matching
-        if (row > 0 && row < grid.gridSizeX - 1)
+        if (row > 0 && row < grid.gridSizeY - 1)
         {
             // Check up and down
             GameObject upTile = grid.tiles[column, row + 1];
@@ -164,6 +164,7 @@ public class Tile : MonoBehaviour
                 otherTileComponent.column = column;
                 row = previousRow;
                 column = previousColumn;
+                GameManager.Instance.Combo = 0;
             }
             else
             {
