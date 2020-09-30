@@ -30,7 +30,7 @@ public class AchievementSystem : Observer
     {
         string key;
 
-        if(value.Equals("Cookies event"))
+        if(value.Equals("Cookie event"))
         {
             cookiesEvent.OnMatch();
             if (cookiesEvent.AchievementCompleted())
@@ -50,12 +50,12 @@ public class AchievementSystem : Observer
             }
         }
 
-        if (value.Equals("Gum event"))
+        if (value.Equals("Lollipop event"))
         {
             lollipopEvent.OnMatch();
             if (lollipopEvent.AchievementCompleted())
             {
-                key = "Match 5 gum";
+                key = "Match 5 lollipops";
                 NotifyAchievement(key, value);
             }
         }
