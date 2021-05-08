@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     // Instance 
-    public static GameManager Instance;
+    public static GameManager instance;
     public Text scoreText,
         comboValue;
     private int playerScore,
@@ -22,11 +22,11 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        if (Instance == null)
+        if (instance == null)
         {
-            Instance = this;
+            instance = this;
         } 
-        else if (Instance != null)
+        else if (instance != null)
         {
             Destroy(gameObject);
         }

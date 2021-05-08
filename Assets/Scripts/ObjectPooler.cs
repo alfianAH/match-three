@@ -16,11 +16,11 @@ public class ObjectPooler : MonoBehaviour
     public Dictionary<string, Queue<GameObject>> poolDictionary;
     
     // Singleton for object pooler
-    public static ObjectPooler Instance;
+    public static ObjectPooler instance;
 
     private void Awake()
     {
-        Instance = this;
+        instance = this;
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         AddIntoPool();
     }

@@ -24,8 +24,11 @@ public class Tile : MonoBehaviour
         tileSprite = GetComponent<SpriteRenderer>();
         // Set position from tile
         grid = FindObjectOfType<Grid>();
-        xPosition = transform.position.x;
-        yPosition = transform.position.y;
+        
+        var position = transform.position;
+        xPosition = position.x;
+        yPosition = position.y;
+        
         column = Mathf.RoundToInt((xPosition - grid.startPos.x) / grid.offset.x);
         row = Mathf.RoundToInt((yPosition - grid.startPos.y) / grid.offset.y);
     }
@@ -46,13 +49,15 @@ public class Tile : MonoBehaviour
     private void OnMouseDown()
     {
         // Get first point
-        firstPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Camera.main != null) 
+            firstPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
     }
 
     private void OnMouseUp()
     {
         // Get final point
-        finalPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        if (Camera.main != null) 
+            finalPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         CalculateAngle();
     }
     
@@ -164,7 +169,7 @@ public class Tile : MonoBehaviour
                 otherTileComponent.column = column;
                 row = previousRow;
                 column = previousColumn;
-                GameManager.Instance.Combo = 0;
+                GameManager.instance.Combo = 0;
             }
             else
             {
@@ -180,28 +185,34 @@ public class Tile : MonoBehaviour
         if (Mathf.Abs(xPosition - transform.position.x) > 0.1f)
         {
             // Move towards the target
-            tempPosition = new Vector3(xPosition, transform.position.y);
-            transform.position = Vector3.Lerp(transform.position, tempPosition, 0.4f);
+            var position = transform.position;
+            tempPosition = new Vector3(xPosition, position.y);
+            position = Vector3.Lerp(position, tempPosition, 0.4f);
+            transform.position = position;
         }
         else
         {
             // Directly set the position
-            tempPosition = new Vector3(xPosition, transform.position.y);
-            transform.position = tempPosition;
+            var currentTransform = transform;
+            tempPosition = new Vector3(xPosition, currentTransform.position.y);
+            currentTransform.position = tempPosition;
             grid.tiles[column, row] = gameObject;
         }
 
         if (Mathf.Abs(yPosition - transform.position.y) > 0.1f)
         {
             // Move towards the target
-            tempPosition = new Vector3(transform.position.x, yPosition);
-            transform.position = Vector3.Lerp(transform.position, tempPosition, 0.4f);
+            var position = transform.position;
+            tempPosition = new Vector3(position.x, yPosition);
+            position = Vector3.Lerp(position, tempPosition, 0.4f);
+            transform.position = position;
         }
         else
         {
             // Directly set the position
-            tempPosition = new Vector3(transform.position.x, yPosition);
-            transform.position = tempPosition;
+            var currentTransform = transform;
+            tempPosition = new Vector3(currentTransform.position.x, yPosition);
+            currentTransform.position = tempPosition;
             grid.tiles[column, row] = gameObject;
         }
     }
