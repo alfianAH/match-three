@@ -1,17 +1,20 @@
 ﻿using System;
 using UnityEngine;
 
-public class PointOfInterest : Subject
+namespace Achievement
 {
-    public static event Action<PointOfInterest> OnPointInterestEntered;
-    
-    [SerializeField] private string poiName;
-
-    public string PoiName => poiName;
-    
-    private void OnDisable()
+    public class PointOfInterest : Subject
     {
-        Notify(poiName);
-        OnPointInterestEntered?.Invoke(this);
+        public static event Action<PointOfInterest> OnPointInterestEntered;
+    
+        [SerializeField] private string poiName;
+
+        public string PoiName => poiName;
+    
+        private void OnDisable()
+        {
+            Notify(poiName);
+            OnPointInterestEntered?.Invoke(this);
+        }
     }
 }

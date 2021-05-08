@@ -1,27 +1,30 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Observer : MonoBehaviour
+namespace Achievement
 {
-    // Notify
-    public abstract void OnNotify(string value);
-}
-
-public abstract class Subject : MonoBehaviour
-{
-    // List of observers
-    private List<Observer> observers = new List<Observer>();
-
-    public void RegisterObserver(Observer observer)
+    public abstract class Observer : MonoBehaviour
     {
-        observers.Add(observer);
+        // Notify
+        public abstract void OnNotify(string value);
     }
 
-    public void Notify(string value)
+    public abstract class Subject : MonoBehaviour
     {
-        foreach (var observer in observers)
+        // List of observers
+        private List<Observer> observers = new List<Observer>();
+
+        public void RegisterObserver(Observer observer)
         {
-            observer.OnNotify(value);
+            observers.Add(observer);
+        }
+
+        public void Notify(string value)
+        {
+            foreach (var observer in observers)
+            {
+                observer.OnNotify(value);
+            }
         }
     }
 }
