@@ -14,7 +14,7 @@ A game where you have to match 3 picture and the picture goes brrr
 2. Go to your command prompt or terminal. (Make sure you have installed git on your computer)
 3. Type ```git clone https://github.com/alfianAH/match-three.git```
 4. And finally it will be cloned to your computer.
-5. Open it with Unity (Recommended Unity 2019.3)
+5. Open it with Unity (Recommended Unity 2019.4.24f1)
 
 ## How to play
 1. Just click and drag your tiles.
